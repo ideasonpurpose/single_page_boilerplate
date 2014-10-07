@@ -1,0 +1,11 @@
+@mixin logo-dims-by-width($width) {
+    // natural logo image size is 70 x 50 px
+    width: $width;
+    height: $width * 5/7;
+}
+
+@mixin logo-dims-by-height($height) {
+    // natural logo image size is 70 x 50 px
+    width: $height * 7/5;
+    height: $height;
+}

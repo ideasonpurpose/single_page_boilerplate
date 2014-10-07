@@ -1,0 +1,60 @@
+/* Base */
+@import "_lib/normalize";
+@import "fontface";
+@import "defaults";
+@import "mixins/breakpoint";
+
+body {
+    height: 100%;
+    min-height: 100%;
+    color: #fff;
+    background: #660066;
+    font-family: 'museo_sans500', sans-serif;
+}
+
+#bg {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    height: 720px;
+    width: 150%;
+    background-image: url(images/rwjf_bglogo.png);
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+    // &.fixed {
+    //     position: absolute;
+    //     background-image: url(images/rwjf_bglogo_fixed.png);
+    //     background-position: 0 0;
+    //     top: 0;
+    //     left: 0;
+    //     width: 100%;
+    //     height: 100%;
+    //     min-height: 720px;
+    // }
+}
+
+a {
+    color: #e7b6f2;
+    display: inline-block;
+    text-decoration: none;
+}
+
+#thanks {
+    font-family: 'museo_sans700', sans-serif;
+    font-size: 50px;
+    line-height: 60px;
+    padding: 17px 0 8px 0;
+}
+
+#copy {
+    font-size: 15px;
+    line-height: 21.5px;
+    width: 280px;
+}
+
+#container {
+    margin: 70px 100px;
+    width: 525px;
+    position: relative;
+}
+
