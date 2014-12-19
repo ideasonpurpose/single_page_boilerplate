@@ -1,12 +1,32 @@
 /* jshint node: true, unused: true */
 'use strict';
 
+/**
+ * Node core modules
+ */
+var http = require('http');
+
+
+/**
+ * npm packaged modules
+ */
 var gulp = require('gulp');
+var gutil = require('gulp-util');
 var sass = require('node-sass');
 var rename = require("gulp-rename");
 var replace = require('gulp-replace');
-var webserver = require('gulp-webserver');
+var livereload = require('gulp-livereload');
+var chalk = require('chalk');
 var del = require('del');
+var connect = require('connect');
+var connectLiveReload = require('connect-livereload');
+var serveStatic = require('serve-static');
+
+
+/**
+ * Constants
+ */
+var LOCAL_PORT = 9001;
 
 gulp.task('build', ['images', 'normalize', 'fonts'], function() {
   var css = sass.renderSync({
@@ -44,14 +64,31 @@ gulp.task('images', function() {
     .pipe(gulp.dest('build/images'));
 });
 
+/**
+ * webserver - start up a livereload-enabled webserver.
+ * The connect-livereload middleware injects the livereload snippet
+ */
 gulp.task('webserver', ['build', 'stage'], function() {
-  return gulp.src('build')
-    .pipe(webserver({
-      livereload: true,
-      fallback: 'index.html'
-    }));
+  var reporter = function() {
+    gutil.log(
+      "Local webserver listening on:",
+      chalk.magenta(LOCAL_PORT),
+      '(http://localhost:' + LOCAL_PORT + ')'
+    );
+  };
+  var app = connect()
+    .use(connectLiveReload())
+    .use(serveStatic('build'));
+  http.createServer(app).listen(LOCAL_PORT, null, null, reporter);
 });
 
+/**
+ * watch - rebuild on changes to files in source, live-reload changed filed
+ */
 gulp.task('watch', ['webserver'], function() {
-  return gulp.watch('source/**', ['build', 'stage']);
+  livereload.listen();
+  gulp.watch('source/**/*', ['build', 'stage'])
+  gulp.watch('build/**/*')
+    .on('change', livereload.changed)
+
 });
