@@ -7,7 +7,7 @@ Actually, because there is a set of modern tools which make building web pages m
 ## Instructions
 
 1. Fork this repository (or just clone it)
-2. `npm install` (you've got gulp globally instaelled already, right?)
+2. `npm install` (you've got gulp globally installed already, right?)
 3. start hacking. 
 
 
